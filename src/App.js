@@ -1,11 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "src/App.css";
 import { Routes, Route } from "react-router-dom";
 import Favourites from "src/components/Favourites";
 import Navbar from "src/components/Navbar";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { setFavourites } from "src/store/favSlice";
 
 import Home from "./components/Home";
 
 function App() {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		if (localStorage.getItem("favourites")) {
+			dispatch(setFavourites());
+		}
+	}, []);
+
 	return (
 		<div className="w-full flex flex-col" style={{ minHeight: "100vh" }}>
 			<Navbar />

@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import { setRepos } from "src/store/repoSlice";
-import { useDispatch } from "react-redux";
 
 export default function Search() {
 	const [query, setQuery] = useState("");
 
 	const dispatch = useDispatch();
+	const favourites = useSelector((state) => state.favourites);
 
 	const handleChange = (e) => {
 		setQuery(e.target.value);
@@ -38,10 +38,13 @@ export default function Search() {
 				}
 			);
 
+			const favNames = favourites.data.map((i) => i.full_name);
+
 			const data = res.data.items.map((i) => {
 				return {
 					full_name: i.full_name,
-					url: i.html_url
+					url: i.html_url,
+					isFav: favNames.includes(i.full_name)
 				};
 			});
 
@@ -87,7 +90,7 @@ export default function Search() {
 			<input
 				type="text"
 				placeholder="Search repos..."
-				className="p-2 my-6 w-1/2 border-4 border-gray-300 rounded-md outline-none focus:border-indigo-400 text-gray-400 font-semibold text-lg"
+				className="p-2 my-6 w-1/2 border-4 border-gray-300 rounded-md outline-none focus:border-indigo-400 text-gray-400 font-semibold text-lg focus:text-indigo-400"
 				value={query}
 				onChange={handleChange}
 			/>
