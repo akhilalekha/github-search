@@ -16,14 +16,37 @@ export default function Search() {
 
 	async function searchRepos() {
 		console.log(query, "final query");
+		dispatch(
+			setRepos({
+				data: [],
+				loaded: false,
+				loading: true
+			})
+		);
+
+		const res = await getRepos();
+
+		const favNames = favourites.data.map((i) => i.full_name);
+
+		const data = res.map((i) => {
+			return {
+				full_name: i.full_name,
+				url: i.html_url,
+				isFav: favNames.includes(i.full_name)
+			};
+		});
+
+		dispatch(
+			setRepos({
+				data: data,
+				loaded: true,
+				loading: false
+			})
+		);
+	}
+
+	const getRepos = async () => {
 		if (process.env.NODE_ENV === "development") {
-			dispatch(
-				setRepos({
-					data: [],
-					loaded: false,
-					loading: true
-				})
-			);
 			const res = await axios.get(
 				"https://api.github.com/search/repositories",
 				{
@@ -37,51 +60,27 @@ export default function Search() {
 					}
 				}
 			);
-
-			const favNames = favourites.data.map((i) => i.full_name);
-
-			const data = res.data.items.map((i) => {
-				return {
-					full_name: i.full_name,
-					url: i.html_url,
-					isFav: favNames.includes(i.full_name)
-				};
-			});
-
-			dispatch(
-				setRepos({
-					data: data,
-					loaded: true,
-					loading: false
-				})
-			);
+			return res.data.items;
 		} else {
 			const res = await axios.get(
 				"https://api.github.com/search/repositories",
 				{
 					params: {
-						q: query
+						q: query,
+						per_page: 18
 					}
 				}
 			);
-			console.log(res);
+			return res.data.items;
 		}
-	}
+	};
 
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
 			if (query) {
 				searchRepos();
-			} else {
-				dispatch(
-					setRepos({
-						data: [],
-						loaded: false,
-						loading: false
-					})
-				);
 			}
-		}, 1000);
+		}, 2000);
 		return () => clearTimeout(timeoutId);
 	}, [query]);
 

@@ -1,14 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { addFavourites, removeFavourites } from "src/store/favSlice";
 import { toggleFav } from "src/store/repoSlice";
-import { useDispatch } from "react-redux";
 
 export default function RepoItem({ item, type }) {
 	const dispatch = useDispatch();
 
 	const handleAddFavourite = (item) => {
 		if (type === "toggle") {
-			// console.log({ item });
 			// if item.isFav is false we want to add it, else remove it
 			if (!item.isFav) {
 				const newItem = {
