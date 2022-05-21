@@ -15,7 +15,7 @@ export default function Search() {
 	};
 
 	async function searchRepos() {
-		console.log(query, "final query");
+		// console.log(query, "final query");
 		dispatch(
 			setRepos({
 				data: [],
@@ -92,6 +92,7 @@ export default function Search() {
 				className="p-2 my-6 w-1/2 border-4 border-gray-300 rounded-md outline-none focus:border-indigo-400 text-gray-400 font-semibold text-lg focus:text-indigo-400"
 				value={query}
 				onChange={handleChange}
+				data-testid="search-input"
 			/>
 		</div>
 	);

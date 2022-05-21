@@ -28,6 +28,7 @@ export default function RepoItem({ item, type }) {
 		<div
 			className="m-2 p-2 py-2 border border-indigo-400 rounded-md w-36 h-20  shadow-lg text-indigo-400 text-sm font-medium flex flex-col"
 			key={item.url}
+			data-testid="repo-item"
 		>
 			<a
 				className="text-ellipsis overflow-hidden h-16"

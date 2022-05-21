@@ -4,10 +4,9 @@ import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import Favourites from "src/components/Favourites";
 import Navbar from "src/components/Navbar";
+import Home from "src/components/Home";
 import { setFavourites } from "src/store/favSlice";
 import "src/App.css";
-
-import Home from "./components/Home";
 
 function App() {
 	const dispatch = useDispatch();
