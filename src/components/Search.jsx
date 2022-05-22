@@ -85,11 +85,11 @@ export default function Search() {
 	}, [query]);
 
 	return (
-		<div className="w-full flex justify-center items-center flex-col">
+		<div className="w-full flex justify-center items-center flex-col lg:px-auto px-4">
 			<input
 				type="text"
 				placeholder="Search repos..."
-				className="p-2 my-6 w-1/2 border-4 border-gray-300 rounded-md outline-none focus:border-indigo-400 text-gray-400 font-semibold text-lg focus:text-indigo-400"
+				className="p-2 my-6 lg:w-1/2 w-full border-4 border-gray-300 rounded-md outline-none focus:border-indigo-400 text-gray-400 font-semibold text-lg focus:text-indigo-400"
 				value={query}
 				onChange={handleChange}
 				data-testid="search-input"

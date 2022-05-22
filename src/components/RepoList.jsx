@@ -7,7 +7,7 @@ export default function RepoList() {
 	const repos = useSelector((state) => state.repos);
 
 	return (
-		<div className="flex flex-wrap px-40 justify-between">
+		<div className="flex flex-wrap lg:px-40 px-4 lg:justify-between justify-center">
 			{repos.data.length > 0 && repos.loaded
 				? repos.data.map((repo) => (
 						<RepoItem item={repo} key={repo.url} type="toggle" />

@@ -4,8 +4,9 @@ const favSlice = createSlice({
 	name: "favourites",
 	initialState: {
 		data: [],
-		loaded: false,
-		loading: false
+		searchResults: [],
+		searchLoaded: false,
+		searchLoading: false
 	},
 	reducers: {
 		// to get from local storage or file import
@@ -41,10 +42,23 @@ const favSlice = createSlice({
 			return (state = {
 				...newData
 			});
+		},
+		setSearchResults: (state, action) => {
+			const newData = {
+				...state,
+				...action.payload
+			};
+			return (state = {
+				...newData
+			});
 		}
 	}
 });
 
-export const { setFavourites, addFavourites, removeFavourites } =
-	favSlice.actions;
+export const {
+	setFavourites,
+	addFavourites,
+	removeFavourites,
+	setSearchResults
+} = favSlice.actions;
 export default favSlice.reducer;
